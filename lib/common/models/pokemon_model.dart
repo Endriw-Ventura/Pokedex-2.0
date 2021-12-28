@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class Pokemon {
   final int id;
   final String name;
-  final String image;
   final String num;
   final List<String> type;
 
   factory Pokemon.fromMap(Map<String, dynamic> json){
     return Pokemon(
       name: json['name'],
-      image: json['img'],
       type: (json['type'] as List<dynamic>).map((e) => e as String).toList(),
       num: json['num'],
       id: json['id'],
@@ -18,9 +16,10 @@ class Pokemon {
   }
 
   Color? get baseColor => _color(type: type[0]);
+  String get image => 'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$num.png';
 
   Pokemon(
-      {required this.name, required this.image, required this.type, required this.num, required this.id});
+      {required this.name, required this.type, required this.num, required this.id});
 
   static Color? _color({required String type}) {
     switch (type) {

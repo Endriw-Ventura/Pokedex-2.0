@@ -4,18 +4,21 @@ import 'package:pokedex/features/details/container/details_containter.dart';
 import 'package:pokedex/features/home/pages/widgets/pokemon_type.dart';
 
 class PokemonItem extends StatelessWidget {
-  const PokemonItem({Key? key, required this.pokemon, required this.onTap})
+  const PokemonItem(
+      {Key? key, required this.pokemon, required this.onTap, required this.index})
       : super(key: key);
   final Pokemon pokemon;
   final Function(String, DetailArgs) onTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
       body: GestureDetector(
-        onTap: () => onTap('/details', DetailArgs(pokemon: pokemon),
-        ),
+        onTap: () =>
+            onTap('/details', DetailArgs(pokemon: pokemon, index: index),
+            ),
         child: Stack(
           children: [
             Container(
@@ -49,7 +52,6 @@ class PokemonItem extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +62,10 @@ class PokemonItem extends StatelessWidget {
                               PokemonType(type: e))
                               .toList(),
                         ),
-                        Flexible(child: Image.network(pokemon.image)),
+                        Flexible(child: Image.network(
+                          pokemon.image, height: 90, width: 90,
+                        ),
+                        ),
                       ],
                     )
                   ],
