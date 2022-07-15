@@ -5,21 +5,31 @@ class Pokemon {
   final String name;
   final String num;
   final List<String> type;
+  final List<String> weaknesses;
+  final String height;
+  final String weight;
+  final String candy;
+  final String egg;
 
   factory Pokemon.fromMap(Map<String, dynamic> json){
     return Pokemon(
       name: json['name'],
+      height: json['height'],
+      weight: json['weight'],
+      candy: json['candy'],
+      egg: json['egg'],
       type: (json['type'] as List<dynamic>).map((e) => e as String).toList(),
+      weaknesses: (json['weaknesses'] as List<dynamic>).map((e) => e as String).toList(),
       num: json['num'],
       id: json['id'],
     );
   }
 
   Color? get baseColor => _color(type: type[0]);
-  String get image => 'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$num.png';
+  String get image => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
 
   Pokemon(
-      {required this.name, required this.type, required this.num, required this.id});
+      {required this.name, required this.type, required this.num, required this.id, required this.weaknesses, required this.height, required this.weight, required this.candy, required this.egg, });
 
   static Color? _color({required String type}) {
     switch (type) {
